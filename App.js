@@ -1,12 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { Ionicons } from '@expo/vector-icons'
 
 export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>THIS IS A STUPID APP THAT DO KAPSLOCK THINGS....</Text>
-        <Text>IS IT?</Text>
+        <Ionicons name='ios-pizza' color='red' size={100}/>
       </View>
     );
   }
