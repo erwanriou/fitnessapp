@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
-import { getMetricMetaINfo } from '../utils/helpers'
+
+import { getMetricMetaInfo } from '../utils/helpers'
+import Stepper from './Stepper'
+import Slider from './Slider'
 
 export default class AddEntry extends Component {
 
@@ -13,7 +16,7 @@ export default class AddEntry extends Component {
   }
 
   increment = (metric) => {
-    const { max, step } = getMetricMetaINfo(metric)
+    const { max, step } = getMetricMetaInfo(metric)
     this.setState((state) => {
       const count = state[metric] + step
       return {
@@ -25,7 +28,7 @@ export default class AddEntry extends Component {
 
   decrement = (metric) => {
     this.setState((state) => {
-      const count = state[metric] - getMetricMetaINfo(metric).step
+      const count = state[metric] - getMetricMetaInfo(metric).step
       return {
         ...state,
         [metric]: count < 0 ? 0 : count,
@@ -34,15 +37,39 @@ export default class AddEntry extends Component {
   }
 
   slide = (metric, value) => {
-    this.setState(() => {
+    this.setState(() => ({
       [metric]: value,
-    })
+    }))
   }
 
   render() {
+    const metaInfo = getMetricMetaInfo()
+
     return (
       <View>
-        {getMetricMetaINfo('bike').getIcon()}
+        {Object.keys(metaInfo).map((key) => {
+          const { getIcon, type, ...rest } = metaInfo[key]
+          const value = this.state[key]
+
+          return (
+            <View key={key}>
+              {getIcon()}
+              {type === 'slider'
+                ? <Slider
+                    value={value}
+                    onChange={(value) => this.slide(key, value)}
+                    {...rest}
+                  />
+                : <Stepper
+                    value={value}
+                    onIncrement={() => this.increment(key)}
+                    onDecrement={() => this.decrement(key)}
+                    {...rest}
+                  />
+              }
+            </View>
+          )
+        })}
       </View>
     )
   }
