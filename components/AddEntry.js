@@ -3,6 +3,7 @@ import { View, TouchableOpacity, Text } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 
 import { getMetricMetaInfo, timeToString } from '../utils/helpers'
+import { submitEntry, removeEntry } from '../utils/api'
 import Stepper from './Stepper'
 import CreateSlider from './Slider'
 import DateHeader from './DateHeader'
@@ -66,7 +67,7 @@ export default class AddEntry extends Component {
       eat: 0,
     }))
     //Navigate to home
-    //Save to 'DB'
+    submitEntry({ key, entry })
     //Clean local Notification
   }
 
@@ -74,7 +75,7 @@ export default class AddEntry extends Component {
     const key = timeToString()
     // Update Redux
     // Route to home
-    // Update 'DB'
+    removeEntry({ key })
   }
 
   render() {
