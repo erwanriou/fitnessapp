@@ -3,7 +3,7 @@ import { View, TouchableOpacity, Text } from 'react-native'
 
 import { getMetricMetaInfo, timeToString } from '../utils/helpers'
 import Stepper from './Stepper'
-import Slider from './Slider'
+import CreateSlider from './Slider'
 import DateHeader from './DateHeader'
 
 function SubmitBtn({ onPress }) {
@@ -82,7 +82,7 @@ export default class AddEntry extends Component {
             <View key={key}>
               {getIcon()}
               {type === 'slider'
-                ? <Slider
+                ? <CreateSlider
                     value={value}
                     onChange={(value) => this.slide(key, value)}
                     {...rest}
