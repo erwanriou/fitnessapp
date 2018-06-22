@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import { View, TouchableOpacity, Text } from 'react-native'
+import { Ionicons } from '@expo/vector-icons'
 
 import { getMetricMetaInfo, timeToString } from '../utils/helpers'
 import Stepper from './Stepper'
 import CreateSlider from './Slider'
 import DateHeader from './DateHeader'
+import TextButton from './TextButton'
 
 function SubmitBtn({ onPress }) {
   return (
@@ -68,8 +70,30 @@ export default class AddEntry extends Component {
     //Clean local Notification
   }
 
+  reset = () => {
+    const key = timeToString()
+    // Update Redux
+    // Route to home
+    // Update 'DB'
+  }
+
   render() {
     const metaInfo = getMetricMetaInfo()
+
+    if (this.props.alreadyLogged) {
+        return (
+          <View>
+            <Ionicons
+              name='ios-happy-outline'
+              size={100}
+            />
+            <Text>You already logge your information for today</Text>
+            <TextButton onPress={this.reset}>
+              Reset
+            </TextButton>
+          </View>
+        )
+    }
 
     return (
       <View>
