@@ -12,10 +12,10 @@ export default function MetricCard({ date, metrics}) {
         const { getIcon, displayName, unit, backgroundColor } = getMetricMetaInfo(metric)
 
         return (
-          <View style={style.metric} key={metric}>
+          <View style={styles.metric} key={metric}>
             {getIcon()}
             <View>
-              <Text styke={{fontSize: 20}}>
+              <Text style={{fontSize: 20}}>
                 {displayName}
               </Text>
               <Text style={{fontSize:16, color: gray}}>
