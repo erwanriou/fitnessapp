@@ -11,6 +11,7 @@ import CreateSlider from './Slider'
 import DateHeader from './DateHeader'
 import TextButton from './TextButton'
 import { addEntry } from '../actions'
+import { NavigationActions } from 'react-navigation'
 
 function SubmitBtn ({ onPress }) {
   return (
@@ -72,7 +73,7 @@ class AddEntry extends Component {
       sleep: 0,
       eat: 0,
     }))
-    //Navigate to home
+    this.toHome()
     submitEntry({ key, entry })
     //Clean local Notification
   }
@@ -82,10 +83,15 @@ class AddEntry extends Component {
     this.props.dispatch(addEntry({
       [key]: getDailyReminderValue()
     }))
-    // Route to home
+    this.toHome()
     removeEntry(key)
   }
 
+  toHome = () => {
+    this.props.navigation.dispatch(NavigationActions.back({
+      key: 'AddEntry'
+    }))
+  }
   render() {
     const metaInfo = getMetricMetaInfo()
 
