@@ -9,6 +9,7 @@ import reducer from './reducers'
 import AddEntry from './components/AddEntry'
 import History from './components/History'
 import EntryDetail from './components/EntryDetail'
+import Live from './components/Live'
 import { white, purple } from './utils/colors'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 
@@ -35,6 +36,13 @@ const Tabs = createBottomTabNavigator({
       tabBarIcon: ({ tintColor }) => <FontAwesome name='plus-square' size={30} color={tintColor}/>
     },
   },
+  Live: {
+    screen: Live,
+    navigationOptions: {
+      tabBarLabel: 'Live',
+      tabBarIcon: ({ tintColor }) => <Ionicons name='ios-speedometer' size={30} color={tintColor}/>
+    },
+  },
 }, {
   navigationOption: {
     header: null
@@ -59,7 +67,7 @@ const MainNavigator = createStackNavigator({
     screen: Tabs,
     navigationOptions: {
       header: null
-    } 
+    }
   },
   EntryDetail: {
     screen: EntryDetail,
