@@ -3,7 +3,7 @@ import { View, TouchableOpacity, Text, Platform, StyleSheet } from 'react-native
 import { Ionicons } from '@expo/vector-icons'
 import { connect } from 'react-redux'
 
-import { getMetricMetaInfo, timeToString, getDailyReminderValue } from '../utils/helpers'
+import { getMetricMetaInfo, timeToString, getDailyReminderValue, clearLocalNotification, setLocalNotification } from '../utils/helpers'
 import { white, purple } from '../utils/colors'
 import { submitEntry, removeEntry } from '../utils/api'
 import Stepper from './Stepper'
@@ -75,7 +75,8 @@ class AddEntry extends Component {
     }))
     this.toHome()
     submitEntry({ key, entry })
-    //Clean local Notification
+    clearLocalNotification()
+      .then(setLocalNotification)
   }
 
   reset = () => {

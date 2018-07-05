@@ -161,13 +161,13 @@ export function getDailyReminderValue () {
 
 export function clearLocalNotification () {
   return AsyncStorage.removeItem(NOTIFICATION_KEY)
-    .then(Notification.cancelAllScheduleNotificationsAsync)
+    .then(Notifications.cancelAllScheduledNotificationsAsync)
 }
 
-function createNofication () {
+function createNotification () {
   return {
-    title: 'Hello, log your stats',
-    body: "Hey, don't forget to log your stats for todays!",
+    title: 'Log your stats!',
+    body: "👋 don't forget to log your stats for today!",
     ios: {
       sound: true,
     },
@@ -187,8 +187,8 @@ export function setLocalNotification () {
       if (data === null) {
         Permissions.askAsync(Permissions.NOTIFICATIONS)
           .then(({ status }) => {
-            if(status === 'granted') {
-              Notification.cancelAllScheduleNotificationsAsync()
+            if (status === 'granted') {
+              Notifications.cancelAllScheduledNotificationsAsync()
 
               let tomorrow = new Date()
               tomorrow.setDate(tomorrow.getDate() + 1)
@@ -198,7 +198,7 @@ export function setLocalNotification () {
               Notifications.scheduleLocalNotificationAsync(
                 createNotification(),
                 {
-                  time: tomorow,
+                  time: tomorrow,
                   repeat: 'day',
                 }
               )
@@ -206,6 +206,6 @@ export function setLocalNotification () {
               AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true))
             }
           })
-        }
-      })
+      }
+    })
 }
